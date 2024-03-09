@@ -1,0 +1,28 @@
+ naneetha@gmail.com
+978 997 8471
+ ANEETHA NAGENDRAN PROFESSIONAL SUMMARY:
+ Aneetha has 9.5 years of IT experiences in Analysis, Design, Development, Testing, Configuration Management and production support of software systems in Java, J2EE and other internet technologies.
+She has been in California, US for 3 years and She has worked with clients like Master Card Inc.-St. Louis, eBay Inc. - San Jose, World bank - Washington DC, Deutsche leasing - Germany etc
+She holds Master’s degree in Software Systems from BITS, Pilani.
+Worked extensively in Java, J2EE, Swing, Servlets, Hibernate, Web services, XML, JDBC, Struts (MVC), SQL
+and Analysis and design using OOAD and UML.
+Experience in distributed computing, multi-platform Client/Server Systems, multi-tiered architecture, internet/intranet web based applications development.
+Ability to lead a team of developers or manage an entire project. Technical lead in multiple project assignments.
+Involved in requirement analysis, design, development, production and maintenance support.
+Exceptionally well organized, strong work ethics and willingness to work hard to achieve employer objectives.
+CERTIFICATIONS
+Certified Java Programmer – Sun Microsystems Inc. Score – 93%
+Certified Internal Quality Auditor For ISO 9000:2000.
+University Rank Holder – B.Tech(Chemical) Vellore Institute of Technology
+
+TECHNICAL SKILLS Technologies
+Framework Database
+Web/ Application Server Design Tools
+IDE Methodologies
+SCM Tools Operating systems
+Java, J2EE, Swing, Web services, EJB, JSP, Servlets, JDBC, RMI, JNDI, XML / XSL, SQL, PL/SQL, JavaScript, JUnit. Struts (MVC), Spring, Hibernate.
+Oracle, SQLServer.
+Web Sphere, Web Logic, JBoss, Tomcat Rational Rose , IBM RAD
+WSAD, JRun, Eclipse, JBuilder
+Agile, Software Engineering (SDLC), OOAD, RUP, UML.
+ClearCase,VSS, CVS ,SVN, PVCS Windows NT/2000, Linux, Solaris.
