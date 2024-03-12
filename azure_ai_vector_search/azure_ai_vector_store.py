@@ -8,8 +8,10 @@ from config import *
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
-from open_ai import *
 
+import openai
+
+openai.api_key = OPENAI_API_KEY
 from azure.search.documents.models import (
     QueryAnswerType,
     QueryCaptionType,
@@ -102,7 +104,15 @@ vector_search = VectorSearch(
         )
     ]
 )
-
+semantic_config = SemanticConfiguration(
+    name="my-semantic-config",
+    prioritized_fields=SemanticPrioritizedFields(
+        content_fields=[SemanticField(field_name="content")],
+        keywords_fields=[SemanticField(field_name="filename")]
+    )
+)
+# Create the semantic settings with the configuration
+semantic_search = SemanticSearch(configurations=[semantic_config])
 
 #Create Search Index client
 client = SearchIndexClient(AZURE_SEARCH_SERVICE_ENDPOINT, AzureKeyCredential(AZURE_SEARCH_ADMIN_KEY))
@@ -121,6 +131,11 @@ index = SearchIndex(
     fields=fields,
     vector_search=vector_search
     )
+# Create the search index with the semantic settings
+#index = SearchIndex(name=index_name, fields=fields,
+ #                   vector_search=vector_search, 
+ #                   semantic_search=semantic_search)
+
 result = client.create_or_update_index(index)
 
 print(f' Index with name {result.name} created')
@@ -142,7 +157,16 @@ def chunk_text():
         f.write(json_data)
         print(f'json_data are created in outputfolder')
     
-
+# Function to generate embeddings for title and content fields, also used for query embeddings
+#text-embedding-ada-002
+def generate_embeddings(text_to_embed): 
+    print(f' text to embed {text_to_embed} ')  
+    # Get the embeddings for the question
+    response = openai.Embedding.create(input=[text_to_embed], engine='text-embedding-ada-002')
+    # Extract the AI output embedding as a list of floats
+    embedding = response["data"][0]["embedding"]
+    print(f' embeddings are {embedding} created')
+    return embedding
 
 def upload():
     chunk_text()
