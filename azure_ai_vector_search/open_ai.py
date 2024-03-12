@@ -9,8 +9,8 @@ def create_prompt(context,query):
 
 
 def generate_answer(conversation):
-    response = openai.completions.create(
-    model='gpt-3.5-turbo-0125',
+    response = openai.ChatCompletion.create(
+    model=OPENAI_DEPLOYMENT_ID,
     messages=conversation,
     temperature=0,
     max_tokens=1000,

@@ -9,15 +9,13 @@ qa_mode = st.sidebar.radio("Select the option", \
                                  ('Upload Resume',
                                   'Resume Matcher'))
 
-selected_analysis = st.sidebar.radio("Select the Analysis Type", \
-                                 ('Vector Search', 
-                                  'Hybrid Search',
-                                  'Exhaustive KNN Search',
-                                  'Semantic Search'))
-
-NUMBER_OF_RESULTS_TO_RETURN = st.sidebar.slider("Number of Search Results to Return",\
-                                                 1, 10, 3)    
 list_of_fields = ["content"]
+
+def get_reply(user_input, content):
+    conversation=[{"role": "system", "content": "You are an AI resume assistant. You will be provided with Job Description and resume of candidates applied for the job. Your task is to compare the resume of the candidate with the job description and provide an output in the below format for each candidate.\n{\nName: Candidate Name,\nTop Skills : list the top skills of the candidate identified as per the job description provided,\nAccuracy : Rate the candidate profile in percentage,\nReason: provide the reason why you think the accuracy is\n}\n{Name: Candidate Name,\nTop Skills : list the top skills of the candidate identified as per the job description provided,\nAccuracy : Rate the candidate profile in percentage,\nReason: provide the reason why you think the accuracy is\n}\nIf you are not clear ask follow up questions before generating the output. As this is related to jobs BE VERY CAREFUL with your analysis.\n"}]
+    reply = generate_reply_from_context(user_input, content, conversation)
+    return reply
+
 def get_search_results(selected_analysis, user_input):
     custom_vector_search = CustomVectorSearch(
         endpoint=AZURE_SEARCH_SERVICE_ENDPOINT,
@@ -46,15 +44,25 @@ def get_search_results(selected_analysis, user_input):
  #   "Match results"
 ###############################################################
 if qa_mode == "Resume Matcher" :
+     NUMBER_OF_RESULTS_TO_RETURN = st.sidebar.slider("Number of Search Results to Return",\
+                                                 1, 10, 3)    
+     selected_analysis = st.sidebar.radio("Select the Analysis Type", \
+                                 ('Vector Search', 
+                                  'Hybrid Search',
+                                  'Exhaustive KNN Search',
+                                  'Semantic Search'))
      user_input = st.text_area(
     "Job Description",
     "As a Product Design Manager at GitLab, you will be responsible for managing a team of up to 5 talented Product Designers",
     )
      if st.button("Search"):
-         results_content = get_search_results(selected_analysis,user_input)
-         content = "\n".join(results_content)
-         st.markdown(f' Match Results {content}')
-         
+         if user_input !='':
+            results_content = get_search_results(selected_analysis,user_input)
+            content = "\n".join(results_content)
+            #st.markdown(f' Match Results {content}')
+            # get the reply from the LLM
+            reply = get_reply(user_input, content)
+            st.markdown(f' MATCH RESULTS WITH ACCURACY:\n {reply}')
 ##############################################################
  #   "Upload Resume"
 ###############################################################

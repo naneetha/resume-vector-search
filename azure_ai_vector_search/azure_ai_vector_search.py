@@ -103,7 +103,8 @@ class CustomVectorSearch:
             select=list_fields,
             top=self.number_results_to_return,
         )  
-        print(f' Vector Search Results {results}')
+        print(f' number_results_to_return {self.number_results_to_return}')
+       
         return self.__get_results_to_return(results)
 
     def get_vectorized_query(self, query,exhaustive_knn=False):
@@ -141,6 +142,9 @@ class CustomVectorSearch:
         """
         results_to_return = []        
         for result in results:
+            print(f"Score: {result['@search.score']}")  
+            print(f"content {result['content']}" )
+            print("********************")
             results_to_return.append(result['content'])
         return results_to_return
     
@@ -180,7 +184,7 @@ class CustomVectorSearch:
         
         
         results = self.client.search(  
-            search_text=query,  
+            search_text=None,  
             vector_queries=[vector_query],
             select=list_fields,
             top=self.number_results_to_return,
